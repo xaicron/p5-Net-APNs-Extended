@@ -36,8 +36,6 @@ sub new {
     my ($class, %args) = @_;
     croak "`cert_file` or `cert` must be specify"
         unless exists $args{cert_file} or exists $args{cert};
-    croak "`key_file` or `key` must be specify"
-        unless exists $args{key_file} or exists $args{key};
     croak "specifying both `cert_file` and `cert` is not allowed"
         if exists $args{cert_file} and exists $args{cert};
     croak "specifying both `key_file` and `key` is not allowed"
@@ -93,7 +91,6 @@ sub _create_ctx {
     my $pw = $self->password;
     Net::SSLeay::CTX_set_default_passwd_cb($ctx, ref $pw ? $pw : sub { $pw });
 
-    $self->_set_rsa_private_key($ctx);
     $self->_set_certificate($ctx);
 
     return $ctx;
@@ -108,22 +105,24 @@ sub _create_ssl {
     return $ssl;
 }
 
-sub _set_rsa_private_key {
-    my ($self, $ctx) = @_;
-    my $guard;
-    my $key_file = $self->key_file;
-    ($guard, $key_file) = _tmpfile($self->key) unless defined $key_file;
-    Net::SSLeay::CTX_use_RSAPrivateKey_file($ctx, $key_file, $self->key_type);
-    die_if_ssl_error "private key: $!";
-}
-
 sub _set_certificate {
     my ($self, $ctx) = @_;
-    my $guard;
+    my ($cert_guard, $key_guard);
     my $cert_file = $self->cert_file;
-    ($guard, $cert_file) = _tmpfile($self->cert) unless defined $cert_file;
+    ($cert_guard, $cert_file) = _tmpfile($self->cert) unless defined $cert_file;
     Net::SSLeay::CTX_use_certificate_file($ctx, $cert_file, $self->cert_type);
     die_if_ssl_error "certificate: $!";
+
+    my $key_file;
+    if (exists $self->{key_file} or exists $self->{key}) {
+        $key_file = $self->key_file;
+        ($key_guard, $key_file) = _tmpfile($self->key) unless defined $key_file;
+    }
+    else {
+        $key_file = $cert_file;
+    }
+    Net::SSLeay::CTX_use_RSAPrivateKey_file($ctx, $key_file, $self->key_type);
+    die_if_ssl_error "private key: $!";
 }
 
 sub disconnect {
