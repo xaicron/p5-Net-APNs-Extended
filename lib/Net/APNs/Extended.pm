@@ -7,7 +7,7 @@ our $VERSION = '0.01';
 
 use parent 'Net::APNs::Extended::Base';
 
-use JSON::XS;
+use JSON::XS ();
 use Carp qw(croak);
 
 __PACKAGE__->mk_accessors(qw[
@@ -27,7 +27,8 @@ my %default = (
 
 sub new {
     my ($class, %args) = @_;
-    $args{queue} = [];
+    $args{queue}  = [];
+    $args{json} ||= JSON::XS->new->utf8;
     $class->SUPER::new(%default, %args);
 }
 
