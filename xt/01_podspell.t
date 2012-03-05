@@ -31,6 +31,8 @@ all_pod_files_spelling_ok('lib');
 
 __DATA__
 Net::APNs::Extended
+Num
+Str
 
 # personal section
 xaicron

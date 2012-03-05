@@ -141,15 +141,98 @@ __END__
 
 =head1 NAME
 
-Net::APNs::Extended -
+Net::APNs::Extended - Client library for APNs that support the extended format.
 
 =head1 SYNOPSIS
 
   use Net::APNs::Extended;
 
+  my $apns = Net::APNs::Extended->new(
+      is_sandbox => 1,
+      cert_file  => 'apns.pem',
+  );
+
+  # send notification to APNs
+  $apsn->send($device_token, {
+      apns => {
+          alert => "Hello, APNs!",
+          badge => 1,
+          sound => "default",
+      },
+      foo => [qw/bar baz/],
+  });
+
+  # if you want to handle the error
+  if (my $error = $apsn->retrive_error) {
+      die Dumper $error;
+  }
+
 =head1 DESCRIPTION
 
-Net::APNs::Extended is
+Net::APNs::Extended is client library for APNs. The client is support the extended format.
+
+=head1 METHODS
+
+=head2 new(%args)
+
+Create a new instance of C<< Net::APNs::Extended >>.
+
+Supported arguments are:
+
+=over
+
+=item is_sandbox : Bool
+
+Default: 1
+
+=item cert_file : Str
+
+=item cert : Str
+
+Required.
+
+Sets certificate. You can not specify both C<< cert >> and C<< cert_file >>.
+
+=item key_file : Str
+
+=item key : Str
+
+Sets private key. You can not specify both C<< key >> and C<< key_file >>.
+
+=item password : Str
+
+Sets private key password.
+
+=item read_timeout : Num
+
+Sets read timeout.
+
+=back
+
+=head2 $apsn->send($device_token, $payload [, $extra ])
+
+Send notification for APNs.
+
+  $apsn->send($device_token, {
+      apns => {
+          alert => "Hello, APNs!",
+          badge => 1,
+          sound => "default",
+      },
+      foo => [qw/bar baz/],
+  });
+
+=head2 $apns->send_multi([ [ $device_token, $payload [, $extra ] ], [ ... ] ... ])
+
+Send notification for each data. The data chunk is same as C<< send() >> arguments.
+
+=head2 $apns->retrive_error()
+
+Gets error data from APNs. If there is no error will not return anything.
+
+  if (my $error = $apns->retrive_error) {
+      die Dumper $error;
+  }
 
 =head1 AUTHOR
 
