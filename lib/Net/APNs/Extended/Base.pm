@@ -11,6 +11,7 @@ use File::Temp qw(tempfile);
 use Socket qw(PF_INET SOCK_STREAM MSG_DONTWAIT inet_aton pack_sockaddr_in);
 use Net::SSLeay qw(die_now die_if_ssl_error);
 use Errno qw(EAGAIN EWOULDBLOCK);
+use JSON::XS ();
 
 __PACKAGE__->mk_accessors(qw[
     host_production
@@ -45,6 +46,7 @@ sub new {
     Net::SSLeay::SSLeay_add_ssl_algorithms();
     Net::SSLeay::randomize();
 
+    $args{json} ||= JSON::XS->new->utf8;
     $class->SUPER::new({ %default, %args });
 }
 

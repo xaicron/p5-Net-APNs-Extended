@@ -14,7 +14,6 @@ __PACKAGE__->mk_accessors(qw[
     max_payload_size
     command
     json
-    queue
 ]);
 
 my %default = (
@@ -28,20 +27,12 @@ my %default = (
 
 sub new {
     my ($class, %args) = @_;
-    $args{json} ||= JSON::XS->new->utf8;
     $args{queue} = [];
     $class->SUPER::new(%default, %args);
 }
 
-sub enqueue {
-    my $self = shift;
-    for my $payload (@_) {
-    }
-}
-
 sub send {
-    my $self = shift;
-    my ($device_token, $payload, $extra) = @_;
+    my ($self, $device_token, $payload, $extra) = @_;
     croak 'Usage: $apns->send($device_token, \%payload [, \%extra ])'
         unless defined $device_token && ref $payload eq 'HASH';
 
@@ -119,7 +110,6 @@ sub _create_send_data {
         $chunk = CORE::pack('c n/a* n/a*', $command, $device_token, $json);
     }
     elsif ($command == 1) {
-        warn $json;
         $chunk = CORE::pack('c a4 a4 n/a* n/a*',
             $command, $extra->{identifier}, $extra->{expiry}, $device_token, $json,
         );
