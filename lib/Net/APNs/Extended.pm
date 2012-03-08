@@ -154,7 +154,7 @@ Net::APNs::Extended - Client library for APNs that support the extended format.
   );
 
   # send notification to APNs
-  $apsn->send($device_token, {
+  $apns->send($device_token, {
       apns => {
           alert => "Hello, APNs!",
           badge => 1,
@@ -164,7 +164,7 @@ Net::APNs::Extended - Client library for APNs that support the extended format.
   });
 
   # if you want to handle the error
-  if (my $error = $apsn->retrive_error) {
+  if (my $error = $apns->retrive_error) {
       die Dumper $error;
   }
 
@@ -210,11 +210,11 @@ Sets read timeout.
 
 =back
 
-=head2 $apsn->send($device_token, $payload [, $extra ])
+=head2 $apns->send($device_token, $payload [, $extra ])
 
 Send notification for APNs.
 
-  $apsn->send($device_token, {
+  $apns->send($device_token, {
       apns => {
           alert => "Hello, APNs!",
           badge => 1,
