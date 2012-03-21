@@ -28,8 +28,9 @@ __PACKAGE__->mk_accessors(qw[
 ]);
 
 my %default = (
-    cert_type => Net::SSLeay::FILETYPE_PEM(),
-    key_type  => Net::SSLeay::FILETYPE_PEM(),
+    cert_type    => Net::SSLeay::FILETYPE_PEM(),
+    key_type     => Net::SSLeay::FILETYPE_PEM(),
+    read_timeout => 3,
 );
 
 sub new {
