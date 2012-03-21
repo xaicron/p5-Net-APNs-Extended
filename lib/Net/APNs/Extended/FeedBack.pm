@@ -25,8 +25,9 @@ sub retrieve_feedback {
         my ($time_t, $token_bin);
         ($time_t, $token_bin, $data) = unpack 'N n/a a*', $data;
         push @$res, {
-            time_t => $time_t,
-            token  => unpack 'H*', $token_bin,
+            time_t    => $time_t,
+            token_bin => $token_bin,
+            token_hex => unpack 'H*', $token_bin,
         };
     }
 
