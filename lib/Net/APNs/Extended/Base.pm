@@ -9,7 +9,7 @@ use parent 'Class::Accessor::Fast';
 use Carp qw(croak);
 use File::Temp qw(tempfile);
 use Socket qw(PF_INET SOCK_STREAM MSG_DONTWAIT inet_aton pack_sockaddr_in);
-use Net::SSLeay qw(die_now die_if_ssl_error);
+use Net::SSLeay ();
 use Errno qw(EAGAIN EWOULDBLOCK);
 
 __PACKAGE__->mk_accessors(qw[
@@ -86,9 +86,9 @@ sub _create_socket {
 
 sub _create_ctx {
     my $self = shift;
-    my $ctx = Net::SSLeay::CTX_tlsv1_new() or die_now "can't create SSL_CTX: $!";
+    my $ctx = Net::SSLeay::CTX_tlsv1_new() or _die_if_ssl_error("can't create SSL_CTX: $!");
     Net::SSLeay::CTX_set_options($ctx, Net::SSLeay::OP_ALL());
-    die_if_ssl_error "ctx options: $!";
+    _die_if_ssl_error("ctx options: $!");
 
     my $pw = $self->password;
     Net::SSLeay::CTX_set_default_passwd_cb($ctx, ref $pw ? $pw : sub { $pw });
@@ -102,7 +102,7 @@ sub _create_ssl {
     my ($self, $sock, $ctx) = @_;
     my $ssl = Net::SSLeay::new($ctx);
     Net::SSLeay::set_fd($ssl, fileno $sock);
-    Net::SSLeay::connect($ssl) or die_now "failed ssl connect: $!";
+    Net::SSLeay::connect($ssl) or _die_if_ssl_error("failed ssl connect: $!");
 
     return $ssl;
 }
@@ -113,7 +113,7 @@ sub _set_certificate {
     my $cert_file = $self->cert_file;
     ($cert_guard, $cert_file) = _tmpfile($self->cert) unless defined $cert_file;
     Net::SSLeay::CTX_use_certificate_file($ctx, $cert_file, $self->cert_type);
-    die_if_ssl_error "certificate: $!";
+    _die_if_ssl_error("certificate: $!");
 
     my $key_file;
     if (exists $self->{key_file} or exists $self->{key}) {
@@ -124,7 +124,7 @@ sub _set_certificate {
         $key_file = $cert_file;
     }
     Net::SSLeay::CTX_use_RSAPrivateKey_file($ctx, $key_file, $self->key_type);
-    die_if_ssl_error "private key: $!";
+    _die_if_ssl_error("private key: $!");
 }
 
 sub disconnect {
@@ -140,11 +140,11 @@ sub disconnect {
     }
     if ($ssl) {
         Net::SSLeay::free($ssl);
-        die_if_ssl_error "failed ssl free: $!";
+        _die_if_ssl_error("failed ssl free: $!");
     }
     if ($ctx) {
         Net::SSLeay::CTX_free($ctx);
-        die_if_ssl_error "failed ctx free: $!";
+        _die_if_ssl_error("failed ctx free: $!");
     }
     if ($sock) {
         close $sock or die "can't close socket: $!";
@@ -159,7 +159,7 @@ sub _send {
     my $self = shift;
     my $data = \$_[0];
     my ($sock, $ctx, $ssl) = @{$self->_connect};
-    Net::SSLeay::ssl_write_all($ssl, $data) or die_now("ssl_write_all error: $!");
+    Net::SSLeay::ssl_write_all($ssl, $data) or _die_if_ssl_error("ssl_write_all error: $!");
 
     return 1;
 }
@@ -169,7 +169,7 @@ sub _read {
     my ($sock, $ctx, $ssl) = @{$self->_connect};
     vec(my $rin = '', fileno($sock), 1) = 1;
     select($rin, undef, undef, $self->read_timeout) or return;
-    my $data = Net::SSLeay::ssl_read_all($ssl) or die_now("ssl_read_all error: $!");
+    my $data = Net::SSLeay::ssl_read_all($ssl) or _die_if_ssl_error("ssl_read_all error: $!");
 
     return $data;
 }
@@ -189,6 +189,12 @@ sub _tmpfile {
     close $fh;
 
     return $fh, $fh->filename;
+}
+
+sub _die_if_ssl_error {
+    my $msg = @_;
+    my $err = Net::SSLeay::print_errs("SSL error: $msg");
+    croak $err if $err;
 }
 
 1;
