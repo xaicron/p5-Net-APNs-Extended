@@ -66,7 +66,7 @@ sub send_multi {
 sub retrive_error {
     my $self = shift;
     my $data = $self->_read || return;
-    my ($command, $status, $identifier) = unpack 'b b a4', $data;
+    my ($command, $status, $identifier) = unpack 'b b L', $data;
     my $error = {
         command    => $command,
         status     => $status,
