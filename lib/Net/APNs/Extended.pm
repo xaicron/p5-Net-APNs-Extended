@@ -111,7 +111,7 @@ sub _create_send_data {
         $chunk = CORE::pack('c n/a* n/a*', $command, $device_token, $json);
     }
     elsif ($command == 1) {
-        $chunk = CORE::pack('c a4 a4 n/a* n/a*',
+        $chunk = CORE::pack('c L N n/a* n/a*',
             $command, $extra->{identifier}, $extra->{expiry}, $device_token, $json,
         );
     }
