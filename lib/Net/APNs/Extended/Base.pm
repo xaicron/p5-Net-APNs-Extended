@@ -4,8 +4,9 @@ use strict;
 use warnings;
 use 5.008_001;
 
-use parent 'Class::Accessor::Fast';
+use parent 'Class::Accessor::Lite';
 
+use JSON::XS;
 use Carp qw(croak);
 use File::Temp qw(tempfile);
 use Socket qw(PF_INET SOCK_STREAM MSG_DONTWAIT inet_aton pack_sockaddr_in);
@@ -25,6 +26,7 @@ __PACKAGE__->mk_accessors(qw[
     key
     key_type
     read_timeout
+    json
 ]);
 
 my %default = (
@@ -47,7 +49,7 @@ sub new {
     Net::SSLeay::randomize();
 
     $args{json} ||= JSON::XS->new->utf8;
-    $class->SUPER::new({ %default, %args });
+    bless { %default, %args }, $class;
 }
 
 sub hostname {
@@ -192,7 +194,7 @@ sub _tmpfile {
 }
 
 sub _die_if_ssl_error {
-    my $msg = @_;
+    my ($msg) = @_;
     my $err = Net::SSLeay::print_errs("SSL error: $msg");
     croak $err if $err;
 }

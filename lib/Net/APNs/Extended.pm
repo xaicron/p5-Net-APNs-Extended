@@ -7,13 +7,11 @@ our $VERSION = '0.01';
 
 use parent 'Net::APNs::Extended::Base';
 
-use JSON::XS ();
 use Carp qw(croak);
 
 __PACKAGE__->mk_accessors(qw[
     max_payload_size
     command
-    json
 ]);
 
 my %default = (
@@ -24,13 +22,6 @@ my %default = (
     max_payload_size => 256,
     command          => 1,
 );
-
-sub new {
-    my ($class, %args) = @_;
-    $args{queue}  = [];
-    $args{json} ||= JSON::XS->new->utf8;
-    $class->SUPER::new(%default, %args);
-}
 
 sub send {
     my ($self, $device_token, $payload, $extra) = @_;

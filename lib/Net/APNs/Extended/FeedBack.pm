@@ -11,11 +11,6 @@ my %default = (
     port            => 2196,
 );
 
-sub new {
-    my ($class, %args) = @_;
-    $class->SUPER::new(%default, %args);
-}
-
 sub retrieve_feedback {
     my $self = shift;
     my $data = $self->_read;
