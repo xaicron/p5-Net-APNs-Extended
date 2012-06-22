@@ -4,7 +4,10 @@ use Module::Install::AuthorTests;
 name 'Net-APNs-Extended';
 all_from 'lib/Net/APNs/Extended.pm';
 
-#requires '';
+requires 'parent';
+requires 'JSON::XS';
+requires 'Class::Accessor::Lite';
+requires 'Net::SSLeay';
 
 test_requires 'Test::More', 0.98;
 
