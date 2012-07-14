@@ -1,4 +1,4 @@
-package Net::APNs::Extended::FeedBack;
+package Net::APNs::Extended::Feedback;
 
 use strict;
 use warnings;
@@ -10,6 +10,11 @@ my %default = (
     is_sandbox      => 0,
     port            => 2196,
 );
+
+sub new {
+    my ($class, %args) = @_;
+    $class->SUPER::new(%default, %args);
+}
 
 sub retrieve_feedback {
     my $self = shift;
