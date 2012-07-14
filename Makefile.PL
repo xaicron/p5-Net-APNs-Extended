@@ -18,3 +18,12 @@ repository 'http://github.com/xaicron/p5-Net-APNs-Extended/';
 bugtracker 'http://github.com/xaicron/p5-Net-APNs-Extended/issues';
 
 WriteAll;
+
+package MY;
+
+# do not install README.pod
+sub init_dirscan {
+    my $self = shift;
+    $self->SUPER::init_dirscan();
+    delete $self->{PM}{'README.pod'};
+}
