@@ -33,6 +33,7 @@ __DATA__
 Net::APNs::Extended
 Num
 Str
+cert
 
 # personal section
 xaicron
