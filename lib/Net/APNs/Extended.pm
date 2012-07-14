@@ -23,6 +23,11 @@ my %default = (
     command          => 1,
 );
 
+sub new {
+    my ($class, %args) = @_;
+    $class->SUPER::new(%default, %args);
+}
+
 sub send {
     my ($self, $device_token, $payload, $extra) = @_;
     croak 'Usage: $apns->send($device_token, \%payload [, \%extra ])'
