@@ -9,6 +9,19 @@ use parent 'Net::APNs::Extended::Base';
 
 use Carp qw(croak);
 
+use constant (
+    NO_ERRORS            => 0,
+    PROCESSING_ERROR     => 1,
+    MISSING_DEVICE_TOKEN => 2,
+    MISSING_TOPIC        => 3,
+    MISSING_PAYLOAD      => 4,
+    INVALID_TOKEN_SIZE   => 5,
+    INVALID_TOPIC_SIZE   => 6,
+    INVALID_PAYLOAD_SIZE => 7,
+    INVALID_TOKEN        => 8,
+    UNKNOWN_ERROR        => 255,
+);
+
 __PACKAGE__->mk_accessors(qw[
     max_payload_size
     command
