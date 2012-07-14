@@ -62,7 +62,7 @@ sub send_multi {
 sub retrive_error {
     my $self = shift;
     my $data = $self->_read || return;
-    my ($command, $status, $identifier) = unpack 'b b L', $data;
+    my ($command, $status, $identifier) = unpack 'C C L', $data;
     my $error = {
         command    => $command,
         status     => $status,
@@ -77,12 +77,7 @@ sub _create_send_data {
     my ($self, $device_token, $payload, $extra) = @_;
     my $chunk;
 
-    unless (ref $payload eq 'HASH') {
-        croak "payload data must be HASHREF";
-    }
-    unless (ref $payload->{aps} eq 'HASH') {
-        croak "aps parameter must be HASHREF";
-    }
+    croak 'aps parameter must be HASHREF' unless ref $payload->{aps} eq 'HASH';
 
     # numify
     $payload->{aps}{badge} += 0 if exists $payload->{aps}{badge};
@@ -104,10 +99,10 @@ sub _create_send_data {
 
     my $command = $self->command;
     if ($command == 0) {
-        $chunk = CORE::pack('c n/a* n/a*', $command, $device_token, $json);
+        $chunk = CORE::pack('C n/a* n/a*', $command, $device_token, $json);
     }
     elsif ($command == 1) {
-        $chunk = CORE::pack('c L N n/a* n/a*',
+        $chunk = CORE::pack('C L N n/a* n/a*',
             $command, $extra->{identifier}, $extra->{expiry}, $device_token, $json,
         );
     }
@@ -151,7 +146,7 @@ Net::APNs::Extended - Client library for APNs that support the extended format.
 
   # send notification to APNs
   $apns->send($device_token, {
-      apns => {
+      aps => {
           alert => "Hello, APNs!",
           badge => 1,
           sound => "default",
