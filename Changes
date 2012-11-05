@@ -1,5 +1,8 @@
 Revision history for Perl extension Net::APNs::Extended
 
+0.03  Mon Nov  5 20:48:47 2012
+    - fixed constants
+
 0.02  Sat Jul 14 19:08:16 2012
     - first release
 
