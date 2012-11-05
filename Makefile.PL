@@ -8,6 +8,7 @@ requires 'parent';
 requires 'JSON::XS';
 requires 'Class::Accessor::Lite';
 requires 'Net::SSLeay';
+requires 'Exporter::Constants';
 
 test_requires 'Test::More', 0.98;
 test_requires 'Test::Mock::Guard', '0.08';
