@@ -78,7 +78,7 @@ sub send_multi {
     return $self->_send($data) ? 1 : 0;
 }
 
-sub retrive_error {
+sub retrieve_error {
     my $self = shift;
     my $data = $self->_read || return;
     my ($command, $status, $identifier) = unpack 'C C L', $data;
@@ -91,6 +91,7 @@ sub retrive_error {
     $self->disconnect;
     return $error;
 }
+*retrive_error = *retrieve_error;
 
 sub _create_send_data {
     my ($self, $device_token, $payload, $extra) = @_;
@@ -174,7 +175,7 @@ Net::APNs::Extended - Client library for APNs that support the extended format.
   });
 
   # if you want to handle the error
-  if (my $error = $apns->retrive_error) {
+  if (my $error = $apns->retrieve_error) {
       die Dumper $error;
   }
 
@@ -237,11 +238,11 @@ Send notification for APNs.
 
 Send notification for each data. The data chunk is same as C<< send() >> arguments.
 
-=head2 $apns->retrive_error()
+=head2 $apns->retrieve_error()
 
 Gets error data from APNs. If there is no error will not return anything.
 
-  if (my $error = $apns->retrive_error) {
+  if (my $error = $apns->retrieve_error) {
       die Dumper $error;
   }
 
