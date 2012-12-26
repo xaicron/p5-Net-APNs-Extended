@@ -170,7 +170,14 @@ sub _read {
     my $self = shift;
     my ($sock, $ctx, $ssl) = @{$self->_connect};
     vec(my $rin = '', fileno($sock), 1) = 1;
-    select($rin, undef, undef, $self->read_timeout) or return;
+    my $nfound = select($rin, undef, undef, $self->read_timeout);
+    return unless $nfound; # timeout
+    if ($nfound == -1) {
+        # maybe $! == EINTR
+        $self->disconnect;
+        return;
+    }
+
     my $data = Net::SSLeay::ssl_read_all($ssl) or _die_if_ssl_error("ssl_read_all error: $!");
 
     return $data;
