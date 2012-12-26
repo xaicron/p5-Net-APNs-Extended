@@ -15,7 +15,7 @@ subtest 'basic' => sub {
                 [$time, ('0123456789'x3).10],
                 [$time + 1, ('0123456789'x3).20]
             ) {
-                $data .= pack 'N n/a' => @$feedback;
+                $data .= pack 'N n/a*' => @$feedback;
             }
             return $data;
         },
