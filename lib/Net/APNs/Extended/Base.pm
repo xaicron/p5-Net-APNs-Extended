@@ -11,7 +11,8 @@ use Carp qw(croak);
 use File::Temp qw(tempfile);
 use Socket qw(PF_INET SOCK_STREAM MSG_DONTWAIT inet_aton pack_sockaddr_in);
 use Net::SSLeay ();
-use Errno qw(EAGAIN EWOULDBLOCK);
+use Errno qw(EAGAIN EWOULDBLOCK EINTR);
+use Time::HiRes ();
 
 __PACKAGE__->mk_accessors(qw[
     host_production
@@ -168,17 +169,33 @@ sub _send {
 
 sub _read {
     my $self = shift;
-    my ($sock, $ctx, $ssl) = @{$self->_connect};
-    vec(my $rin = '', fileno($sock), 1) = 1;
-    my $nfound = select($rin, undef, undef, $self->read_timeout);
-    return unless $nfound; # timeout
-    if ($nfound == -1) {
-        # maybe $! == EINTR
-        $self->disconnect;
-        return;
-    }
 
-    my $data = Net::SSLeay::ssl_read_all($ssl) or _die_if_ssl_error("ssl_read_all error: $!");
+    my $begin_time = Time::HiRes::time();
+    my $timeout = $self->read_timeout;
+
+    my ($sock, $ctx, $ssl) = @{$self->_connect};
+
+    my $data;
+    while (1) {
+        vec(my $rin = '', fileno($sock), 1) = 1;
+        my $nfound = select($rin, undef, undef, $timeout);
+        return unless $nfound; # timeout
+
+        # returned error
+        if ($nfound == -1) {
+            if ($! == EINTR) {
+                # can retry
+                $timeout -= ($begin_time - Time::HiRes::time());
+                next;
+            }
+
+            $self->disconnect;
+            return;
+        }
+
+        $data = Net::SSLeay::ssl_read_all($ssl) or _die_if_ssl_error("ssl_read_all error: $!");
+        last;
+    }
 
     return $data;
 }
