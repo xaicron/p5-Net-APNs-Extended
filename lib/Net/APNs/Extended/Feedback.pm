@@ -85,7 +85,7 @@ This method is receive the feedback from APNs.
 
 =head1 AUTHOR
 
-xaicron E<lt>xaicron {at} cpan.orgE<gt>
+xaicron E<lt>xaicron {@} cpan.orgE<gt>
 
 =head1 COPYRIGHT
 

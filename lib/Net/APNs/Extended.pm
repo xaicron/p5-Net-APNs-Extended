@@ -255,7 +255,7 @@ Gets error data from APNs. If there is no error will not return anything.
 
 =head1 AUTHOR
 
-xaicron E<lt>xaicron {at} cpan.orgE<gt>
+xaicron E<lt>xaicron {@} cpan.orgE<gt>
 
 =head1 COPYRIGHT
 
