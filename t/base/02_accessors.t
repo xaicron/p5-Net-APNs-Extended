@@ -18,6 +18,7 @@ for my $method (qw{
     key
     key_type
     read_timeout
+    write_timeout
     json
 }) {
     ok $apns->$method(1);
