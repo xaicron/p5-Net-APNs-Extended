@@ -201,7 +201,7 @@ sub _do_select {
         if ($nfound == -1) {
             if ($! == EINTR) {
                 # can retry
-                $timeout -= ($begin_time - Time::HiRes::time()) if defined $timeout;
+                $timeout -= (Time::HiRes::time() - $begin_time) if defined $timeout;
                 next;
             }
             else {
