@@ -1,5 +1,7 @@
 Revision history for Perl extension Net::APNs::Extended
 
+{{$NEXT}}
+
 0.05  Thu Dec 27 23:57:19 2012
     - fixed select() error handling (suggested by nhayashi)
 
