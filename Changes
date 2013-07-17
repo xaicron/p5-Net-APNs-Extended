@@ -2,6 +2,10 @@ Revision history for Perl extension Net::APNs::Extended
 
 {{$NEXT}}
 
+0.06 2013-07-17T04:52:11Z
+    - Fixed a problem that pass through invalid connection on retrieve_error()
+        (reported by zhao-yangyang++)
+
 0.05  Thu Dec 27 23:57:19 2012
     - fixed select() error handling (suggested by nhayashi)
 
