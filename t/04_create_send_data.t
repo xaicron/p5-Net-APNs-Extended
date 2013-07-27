@@ -22,9 +22,9 @@ subtest 'success' => sub {
     is $identifier, 0;
     is $expiry, 0;
     is $device_token, 'device_token';
-    is $json, $apns->json->encode({
+    is_deeply $apns->json->decode($json), {
         aps => { alert => 'メッセージ' },
-    });
+    };
 };
 
 subtest 'with extras' => sub {
@@ -38,9 +38,9 @@ subtest 'with extras' => sub {
     is $identifier, 12345;
     is $expiry, 56789;
     is $device_token, 'device_token';
-    is $json, $apns->json->encode({
+    is_deeply $apns->json->decode($json), {
         aps => { alert => 'メッセージ' },
-    });
+    };
 };
 
 subtest 'trimed' => sub {
@@ -54,9 +54,9 @@ subtest 'trimed' => sub {
     is $identifier, 12345;
     is $expiry, 56789;
     is $device_token, 'device_token';
-    is $json, $apns->json->encode({
+    is_deeply $apns->json->decode($json), {
         aps => { alert => 'メッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセ' },
-    });
+    };
 };
 
 subtest 'badge to numify' => sub {
@@ -70,9 +70,9 @@ subtest 'badge to numify' => sub {
     is $identifier, 12345;
     is $expiry, 56789;
     is $device_token, 'device_token';
-    is $json, $apns->json->encode({
+    is_deeply $apns->json->decode($json), {
         aps => { alert => 'メッセージ', badge => 100 },
-    });
+    };
 };
 
 subtest 'trimd alter.body' => sub {
@@ -86,14 +86,14 @@ subtest 'trimd alter.body' => sub {
     is $identifier, 12345;
     is $expiry, 56789;
     is $device_token, 'device_token';
-    is $json, $apns->json->encode({
+    is_deeply $apns->json->decode($json), {
         aps => {
             alert => {
                 body => 'メッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメ',
             },
             badge => 100,
         },
-    });
+    };
 };
 
 subtest 'command 0' => sub {
@@ -105,9 +105,9 @@ subtest 'command 0' => sub {
 
     is $command, 0;
     is $device_token, 'device_token';
-    is $json, $apns->json->encode({
+    is_deeply $apns->json->decode($json), {
         aps => { alert => 'メッセージ' },
-    });
+    };
 };
 
 done_testing;
