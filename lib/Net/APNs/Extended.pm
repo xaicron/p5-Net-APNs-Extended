@@ -3,7 +3,7 @@ package Net::APNs::Extended;
 use strict;
 use warnings;
 use 5.008_001;
-our $VERSION = '0.06';
+our $VERSION = '0.07';
 
 use parent qw(Exporter Net::APNs::Extended::Base);
 use Carp qw(croak);
