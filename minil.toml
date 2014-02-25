@@ -1,1 +1,2 @@
 name = "Net-APNs-Extended"
+badges = ["travis"]

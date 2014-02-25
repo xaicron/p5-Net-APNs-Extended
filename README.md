@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/xaicron/p5-Net-APNs-Extended.png?branch=master)](https://travis-ci.org/xaicron/p5-Net-APNs-Extended)
 # NAME
 
 Net::APNs::Extended - Client library for APNs that support the extended format.

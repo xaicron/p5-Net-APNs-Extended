@@ -4,7 +4,7 @@
       "xaicron <xaicron {@} cpan.org>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Minilla/v0.5.6, CPAN::Meta::Converter version 2.131560",
+   "generated_by" : "Minilla/v0.11.0, CPAN::Meta::Converter version 2.133380",
    "license" : [
       "perl_5"
    ],
@@ -21,7 +21,8 @@
          "share",
          "eg",
          "examples",
-         "author"
+         "author",
+         "builder"
       ]
    },
    "prereqs" : {
@@ -71,6 +72,6 @@
    "version" : "0.07",
    "x_contributors" : [
       "Syohei YOSHIDA <syohex@gmail.com>",
-      "Yuji Shimada <xaicron@gmail.com>"
+      "xaicron <xaicron@gmail.com>"
    ]
 }
