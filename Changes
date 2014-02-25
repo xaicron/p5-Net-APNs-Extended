@@ -2,6 +2,9 @@ Revision history for Perl extension Net::APNs::Extended
 
 {{$NEXT}}
 
+0.10 2014-02-25T12:23:28Z
+    - Added error status code `SHUTDOWN`
+
 0.09 2014-02-25T11:00:12Z
     - Added write_timeout option
 
