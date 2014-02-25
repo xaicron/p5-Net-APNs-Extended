@@ -78,7 +78,7 @@ sub _create_socket {
     socket(my $sock, PF_INET, SOCK_STREAM, 0) or die "can't create socket: $!";
     my $sock_addr = do {
         my $iaddr = inet_aton($self->hostname)
-            or die sprintf "can't create iaddr from %s: %s", $self->hostname, $!;
+            or die sprintf "can't create iaddr from %s", $self->hostname;
         pack_sockaddr_in $self->port, $iaddr or die "can't create sock_addr: $!";
     };
     CORE::connect($sock, $sock_addr) or die "can't connect socket: $!";
