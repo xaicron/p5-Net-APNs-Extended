@@ -2,6 +2,9 @@ Revision history for Perl extension Net::APNs::Extended
 
 {{$NEXT}}
 
+0.09 2014-02-25T11:00:12Z
+    - Added write_timeout option
+
 0.08 2014-02-25T10:47:15Z
     - Fixed error message from inet_aton
 

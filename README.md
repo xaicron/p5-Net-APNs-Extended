@@ -63,6 +63,10 @@ Supported arguments are:
 
     Sets read timeout.
 
+- write\_timeout : Num
+
+    Sets write timeout.
+
 ## $apns->send($device\_token, $payload \[, $extra \])
 
 Send notification for APNs.

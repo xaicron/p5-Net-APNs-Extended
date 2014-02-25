@@ -69,9 +69,9 @@
          "web" : "https://github.com/xaicron/p5-Net-APNs-Extended"
       }
    },
-   "version" : "0.08",
+   "version" : "0.09",
    "x_contributors" : [
       "Syohei YOSHIDA <syohex@gmail.com>",
-      "xaicron <xaicron@gmail.com>"
+      "Yuji Shimada <xaicron@gmail.com>"
    ]
 }
