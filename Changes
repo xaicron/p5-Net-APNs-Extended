@@ -2,6 +2,9 @@ Revision history for Perl extension Net::APNs::Extended
 
 {{$NEXT}}
 
+0.08 2014-02-25T10:47:15Z
+    - Fixed error message from inet_aton
+
 0.07 2013-07-27T09:53:15Z
     - Fixed test for 5.18.0 (syohex++)
 
