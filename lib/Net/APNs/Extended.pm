@@ -18,6 +18,7 @@ use constant {
     INVALID_TOPIC_SIZE   => 6,
     INVALID_PAYLOAD_SIZE => 7,
     INVALID_TOKEN        => 8,
+    SHUTDOWN             => 10,
     UNKNOWN_ERROR        => 255,
 };
 
@@ -31,6 +32,7 @@ our @EXPORT_OK = qw{
     INVALID_TOPIC_SIZE
     INVALID_PAYLOAD_SIZE
     INVALID_TOKEN
+    SHUTDOWN
     UNKNOWN_ERROR
 };
 our %EXPORT_TAGS = (constants => \@EXPORT_OK);
