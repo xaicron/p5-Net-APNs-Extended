@@ -228,6 +228,10 @@ Sets private key password.
 
 Sets read timeout.
 
+=item write_timeout : Num
+
+Sets write timeout.
+
 =back
 
 =head2 $apns->send($device_token, $payload [, $extra ])
