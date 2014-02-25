@@ -38,18 +38,4 @@ subtest 'backward compatibility' => sub {
     is $guard->call_count($apns, 'disconnect'), 1;
 };
 
-subtest 'broken response' => sub {
-    my $guard = mock_guard $apns => {
-        _read      => sub { '' },
-        disconnect => 1,
-    };
-    my $error = $apns->retrive_error;
-    is_deeply $error, {
-        command    => 8,
-        status     => 1,
-        identifier => 0,
-    };
-    is $guard->call_count($apns, 'disconnect'), 1;
-};
-
 done_testing;

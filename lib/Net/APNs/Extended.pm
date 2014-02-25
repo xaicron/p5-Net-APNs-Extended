@@ -94,9 +94,9 @@ sub retrieve_error {
 
     my ($command, $status, $identifier) = unpack 'C C L', $data;
     my $error = {
-        command    => $command    || 8,
-        status     => $status     || PROCESSING_ERROR,
-        identifier => $identifier || 0,
+        command    => $command,
+        status     => $status,
+        identifier => $identifier,
     };
 
     $self->disconnect;
