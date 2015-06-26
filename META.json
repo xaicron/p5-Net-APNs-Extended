@@ -68,11 +68,11 @@
          "web" : "https://github.com/xaicron/p5-Net-APNs-Extended"
       }
    },
-   "version" : "0.10",
+   "version" : "0.11",
    "x_contributors" : [
       "Syohei YOSHIDA <syohex@gmail.com>",
       "Colin Kuskie <colink@perldreamer.com>",
-      "Yuji Shimada <xaicron@gmail.com>"
+      "xaicron <xaicron@gmail.com>"
    ],
    "x_serialization_backend" : "JSON::PP version 2.27300"
 }
