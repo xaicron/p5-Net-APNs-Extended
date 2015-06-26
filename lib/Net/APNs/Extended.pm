@@ -241,7 +241,7 @@ Sets write timeout.
 Send notification for APNs.
 
   $apns->send($device_token, {
-      apns => {
+      aps => {
           alert => "Hello, APNs!",
           badge => 1,
           sound => "default",

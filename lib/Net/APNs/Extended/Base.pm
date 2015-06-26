@@ -225,7 +225,7 @@ sub DESTROY {
 sub _tmpfile {
     my $fh = File::Temp->new(
         TEMPLATE => "napnseXXXXXXXXXXX",
-        TEMPDIR  => 1,
+        TMPDIR   => 1,
         EXLOCK   => 0,
     );
     syswrite $fh, $_[0];
