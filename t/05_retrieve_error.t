@@ -22,19 +22,23 @@ subtest 'basic' => sub {
     is $guard->call_count($apns, 'disconnect'), 1;
 };
 
-subtest 'backward compatibility' => sub {
+subtest 'no data' => sub {
     my $guard = mock_guard $apns => {
-        _read => sub {
-            pack 'C C L', 8, 8, 12345;
-        },
+        _read      => undef,
         disconnect => 1,
     };
-    my $error = $apns->retrive_error;
-    is_deeply $error, {
-        command    => 8,
-        status     => 8,
-        identifier => 12345,
+    my $error = $apns->retrieve_error;
+    is $error, undef;
+    is $guard->call_count($apns, 'disconnect'), 0;
+};
+
+subtest 'connection closed' => sub {
+    my $guard = mock_guard $apns => {
+        _read      => '',
+        disconnect => 1,
     };
+    my $error = $apns->retrieve_error;
+    is $error, '';
     is $guard->call_count($apns, 'disconnect'), 1;
 };
 

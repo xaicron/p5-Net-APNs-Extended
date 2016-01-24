@@ -92,6 +92,11 @@ sub retrieve_error {
     my $data = $self->_read;
     return unless defined $data;
 
+    if ($data eq '') { # connection closed
+        $self->disconnect;
+        return $data;
+    }
+
     my ($command, $status, $identifier) = unpack 'C C L', $data;
     my $error = {
         command    => $command,
