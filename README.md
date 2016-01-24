@@ -94,7 +94,7 @@ Gets error data from APNs. If there is no error will not return anything.
 
 # AUTHOR
 
-xaicron <xaicron {@} cpan.org>
+xaicron &lt;xaicron {@} cpan.org>
 
 # COPYRIGHT
 
