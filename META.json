@@ -74,5 +74,5 @@
       "Colin Kuskie <colink@perldreamer.com>",
       "xaicron <xaicron@gmail.com>"
    ],
-   "x_serialization_backend" : "JSON::PP version 2.27202"
+   "x_serialization_backend" : "JSON::PP version 2.27300"
 }
