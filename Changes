@@ -2,6 +2,9 @@ Revision history for Perl extension Net::APNs::Extended
 
 {{$NEXT}}
 
+0.12 2016-01-24T14:00:09Z
+    - Fixed obtain empty string from Net::SSLeay::read() (suggested by perlDreamer)
+
 0.11 2015-06-26T11:36:21Z
     - Fix a POD typo and Fix typo in File::Temp invocation (perlDreamer++)
 
