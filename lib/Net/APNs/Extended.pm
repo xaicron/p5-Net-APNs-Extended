@@ -90,7 +90,7 @@ sub send_multi {
 sub retrieve_error {
     my $self = shift;
     my $data = $self->_read;
-    return unless defined $data;
+    return unless $data;
 
     if ($data eq '') { # connection closed
         $self->disconnect;
