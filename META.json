@@ -4,13 +4,13 @@
       "xaicron <xaicron {@} cpan.org>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Minilla/v3.0.1, CPAN::Meta::Converter version 2.150005",
+   "generated_by" : "Minilla/v3.0.13, CPAN::Meta::Converter version 2.150010",
    "license" : [
       "perl_5"
    ],
    "meta-spec" : {
       "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
-      "version" : "2"
+      "version" : 2
    },
    "name" : "Net-APNs-Extended",
    "no_index" : {
@@ -70,9 +70,9 @@
    },
    "version" : "0.12",
    "x_contributors" : [
-      "Syohei YOSHIDA <syohex@gmail.com>",
       "Colin Kuskie <colink@perldreamer.com>",
+      "Syohei YOSHIDA <syohex@gmail.com>",
       "xaicron <xaicron@gmail.com>"
    ],
-   "x_serialization_backend" : "JSON::PP version 2.27300"
+   "x_serialization_backend" : "JSON::PP version 2.94"
 }
