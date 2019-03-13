@@ -91,7 +91,7 @@ sub _create_socket {
 
 sub _create_ctx {
     my $self = shift;
-    my $ctx = Net::SSLeay::CTX_tlsv1_new() or _die_if_ssl_error("can't create SSL_CTX: $!");
+    my $ctx = Net::SSLeay::CTX_new() or _die_if_ssl_error("can't create SSL_CTX: $!");
     Net::SSLeay::CTX_set_options($ctx, Net::SSLeay::OP_ALL());
     _die_if_ssl_error("ctx options: $!");
 
