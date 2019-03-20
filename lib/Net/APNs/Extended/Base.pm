@@ -3,7 +3,7 @@ package Net::APNs::Extended::Base;
 use strict;
 use warnings;
 use 5.008_001;
-our $VERSION = '0.13';
+our $VERSION = '0.14';
 
 use parent 'Class::Accessor::Lite';
 
