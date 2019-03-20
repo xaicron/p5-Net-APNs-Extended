@@ -2,6 +2,9 @@ Revision history for Perl extension Net::APNs::Extended
 
 {{$NEXT}}
 
+0.13 2019-03-20T23:35:09Z
+   - Fixed a problem that gateway.(sandbox.)push.apple.com does not support TLSv1
+
 0.12 2016-01-24T14:00:09Z
     - Fixed obtain empty string from Net::SSLeay::read() (suggested by perlDreamer)
 

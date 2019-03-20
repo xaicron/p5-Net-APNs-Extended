@@ -2,6 +2,7 @@ package Net::APNs::Extended::Feedback;
 
 use strict;
 use warnings;
+our $VERSION = '0.13';
 use parent 'Net::APNs::Extended::Base';
 
 my %default = (

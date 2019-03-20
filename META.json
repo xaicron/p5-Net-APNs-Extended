@@ -68,7 +68,7 @@
          "web" : "https://github.com/xaicron/p5-Net-APNs-Extended"
       }
    },
-   "version" : "0.12",
+   "version" : "0.13",
    "x_contributors" : [
       "Colin Kuskie <colink@perldreamer.com>",
       "Syohei YOSHIDA <syohex@gmail.com>",
