@@ -4,7 +4,7 @@
       "xaicron <xaicron {@} cpan.org>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Minilla/v3.0.13, CPAN::Meta::Converter version 2.150010",
+   "generated_by" : "Minilla/v3.1.4, CPAN::Meta::Converter version 2.150010",
    "license" : [
       "perl_5"
    ],
@@ -72,7 +72,9 @@
    "x_contributors" : [
       "Colin Kuskie <colink@perldreamer.com>",
       "Syohei YOSHIDA <syohex@gmail.com>",
-      "xaicron <xaicron@gmail.com>"
+      "xaicron <xaicron@gmail.com>",
+      "omohayui <omohayui@gmail.com>"
    ],
-   "x_serialization_backend" : "JSON::PP version 2.94"
+   "x_serialization_backend" : "JSON::PP version 4.00",
+   "x_static_install" : 1
 }
